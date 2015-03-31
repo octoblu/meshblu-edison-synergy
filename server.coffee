@@ -3,7 +3,7 @@ _ = require 'lodash'
 meshbluJSON = require './meshblu.json'
 EdisonSensor = require './edison-sensor'
 
-_.defaults meshbluJSON, {host: 'app.octoblu.com', port: 443 }
+_.defaults meshbluJSON, {server: 'meshblu.octoblu.com', port: 443 }
 Cylon.robot(
   connections:
     edison: adaptor: 'intel-iot'
@@ -11,8 +11,8 @@ Cylon.robot(
       adaptor: 'skynet'
       uuid: meshbluJSON.uuid
       token: meshbluJSON.token
-      host: meshbluJSON.host
-      port: meshbluJSON.port
+      # host: meshbluJSON.server
+      # portNumber: meshbluJSON.port
   devices:
     volume:
       driver: 'analogSensor'
@@ -22,6 +22,12 @@ Cylon.robot(
     light:
       driver: 'analogSensor'
       pin: 1
+    temperature:
+      driver: 'analogSensor'
+      pin: 2
+    human:
+      driver: 'button'
+      pin: 2
 
   work: (my) ->
     sensor = new EdisonSensor my
